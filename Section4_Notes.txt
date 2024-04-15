@@ -2,3 +2,9 @@
 
 ## 28) Demo
 
+This lesson gives a brief overview of what the app we're building in this section.
+It's a food tracker that visualizes a list of dates, and it shows the calories and macros for each day and have the functionality to add food for a day as well as view all the foods eaten on a given day.
+It also saves previously added foods for quick access for adding again later on.
+
+## 29) The Starting HTML Files:
+
