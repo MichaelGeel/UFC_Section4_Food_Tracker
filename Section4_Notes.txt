@@ -8,3 +8,18 @@ It also saves previously added foods for quick access for adding again later on.
 
 ## 29) The Starting HTML Files:
 
+This section covers downloading the starting html files for this particular web app, alongside this is also a deeper look into the functionalities and what we're starting out with functionality wise on the html files.
+
+## 30) Adding Templates
+
+We're starting out with some basic flask setup.
+Then we'll get 3 routes initialized to match up with the 3 html file pages that'll be on the app.
+Once the routes are set up and loading successfully, we'll add in the css files for styling.
+To add the css files, we create the static folder in our working directory and add them to it.
+We'll also be updating the templates to look for the CSS file:
+    "<link href="{{ url_for('static', filename='bootstrap.min.css') }} rel="styleshoot">"
+    "<link href="{{ url_for('static', filename='theme.css') }}>"
+With this we'll save and reload the app to check that the styling is coming through on all 3 html files.
+
+## 31) Creating the Database:
+
