@@ -42,3 +42,11 @@ Then once the database has been created, we'll verify that the tables were creat
 
 ## 32) Adding Database Helpers:
 
+We'll now add the code for actually working with the database.
+This includes the connect_db and get_db functions for getting the db connection to be able to execute queries on it, 
+as well as the app.teardown to close the db after every route has finished executing.
+And we'll import the libraries we need for these functions.
+Lastly we'll load all the pages as a quick test to check there's no issue with the code.
+
+## 33) Working with the Food Form:
+
