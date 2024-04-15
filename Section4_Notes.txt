@@ -23,3 +23,22 @@ With this we'll save and reload the app to check that the styling is coming thro
 
 ## 31) Creating the Database:
 
+At this point we'll need to create the database as the entire functionality of this app relies on a database to work.
+This time we're going to be creating the database and it's tables in a different manner.
+We'll have 3 tables, one for keeping track of the dates in the app, a list of all the foods that have been added, and then one to 
+track when a food gets applied to a date.
+Now in the file that'll create the tables, we'll write the code to create the tables:
+    "create table table_name (
+        column_name column_params
+    )"
+We'll save the file as 'food_tracker.sql'
+If we want to create a primary key that is the combination of 2 other columns, when creating the table, we use the following code:
+    "primary key(column1, column2, ...)"
+Now in the terminal, we'll create a database named "food_log.db":
+    "sqlite3 food_log.db < food_tracker.sql"
+So in the video the above code is used, however it doesn't work in a windows powershell terminal, so instead we'll use:
+    "cat filename.sql | sqlite3 dbname.db"
+Then once the database has been created, we'll verify that the tables were created and that we can access the tables even if there's nothing in them yet.
+
+## 32) Adding Database Helpers:
+
