@@ -50,3 +50,19 @@ Lastly we'll load all the pages as a quick test to check there's no issue with t
 
 ## 33) Working with the Food Form:
 
+The first functionality we're going to add is the ability to add food items into the database.
+By starting with this functionality we can build the app in such a way that there will always be data to work with for testing.
+Now looking at the form we've got built, the first thing we'll do is ensure the form actually works.
+As we analyze the existing template, upon testing the button to add a food item, we see that it does not work, so we'll address that first.
+So we change the form's submit action to run a POST to itself, meaning we need to allow for GET and POST requests.
+We'll then add the logic governing the POST and GET method handling for this route.
+Once done we test, confirm the code we've done so far isn't calling any errors.
+Now we want to be able to get the data from the form, so back in the HTML file, we want to make sure that each input has a name so that 
+it can be passed to the flask app.
+Then we'll test that these values are being passed to the app, because remember that form data comes as a name-value pair, hence why we need the name.
+Also it's good practice to test every little functionality made as that doing too much in one go can make it difficult to isolate an error and 
+the resolution of the error could render other works done meaningless as well.
+Once we're getting a successful output showcasing the form data we know we've successfully achieved retreiving form data.
+
+## 34) Inserting Food Data into the Database:
+
