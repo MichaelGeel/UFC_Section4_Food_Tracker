@@ -43,15 +43,12 @@ def food():
                    [name, protein, carbs, fat, calories])
         db.commit()
 
-        # Calling the food route using the get method here to save on processing.
-        return render_template('add_food.html')
-    else:
         # Fetching all items from the database.
-        cur = db.execute('select name, protein, carbohydrates, fat, calories from food;')
-        results = cur.fetchall()
+    cur = db.execute('select name, protein, carbohydrates, fat, calories from food;')
+    results = cur.fetchall()
         
-        # Returning the form with the food items from the database.
-        return render_template('add_food.html', results=results)
+    # Returning the form with the food items from the database.
+    return render_template('add_food.html', results=results)
 
 @app.route('/view')
 def view():

@@ -84,10 +84,15 @@ We'll do one last check on the database and if all is good then that's this func
 We want to see all the foods that are already in the database to show up under the food entry form so we don't accidentally re-enter an existing food.
 And to get our food in the database we'll have to write a query to do so.
 So we'll do a number of formats, firstly, we'll move the get_db above the if statement.
-Then we'll copy the return statement into the if true portion of the if statement, and then indent the origin into the else portion.
-Now we'll query the database to fetch all food items from it.
-Then in the else return we'll include the results to create the food items.
+Now we'll query the database to fetch all food items from it outside the if statement.
+Then we'll add the results to what gets fed into the template render.
 Now in the add_food.html file, we'll look for where we are displaying the food items.
 We'll encase the unordered list tags that we have in a for loop which will loop over each item in the results we passed to the template
-which it'll iterate over and dynamically read the items into the ul entries.
-However, if we test it now, the items are rather cramped ontop of eachother, 
+which it'll iterate over and dynamically read the items into the unordered list entries.
+However, if we test it now, the items are rather cramped ontop of eachother, and in the lesson, the page-header class gets moved to create spacing, 
+but a simply <hr> spacer does the trick just fine.
+Lastly, we'll test the full functionality off the food app by adding one more food to the database.
+So upon adding a food, the page should refresh and the food just adding should show up at the bottom of the list of foods.
+
+## 36) Inserting the Date:
+
