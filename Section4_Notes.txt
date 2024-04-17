@@ -66,3 +66,28 @@ Once we're getting a successful output showcasing the form data we know we've su
 
 ## 34) Inserting Food Data into the Database:
 
+Now that we know our form is working correctly, we can take it's data and put it into the database.
+The first thing we'll is, within the POST request method of the form, get the 4 form values and save them to variables.
+We'll then also add in a calories variable, however this value is calculated based on the fat, protein and carbs.
+    "calories = (fat*9)+(protein*4)+(carbs*4)"
+Note we should also convert the retrieved form values to int type to prevent errors.
+Then once we have these values we'll go ahead and insert them into the database.
+We also took out the POST method return and else statement, so that the route returns the get method version regardless of the request method used.
+As things stand, we have no indication that the food was successfully loaded, as regardless of the success of the sql insert, a fresh form is loaded.
+So for now we'll shut down the app and go into the database to verify manually.
+Upon confirming the entry is in the table, for good measure we should also confirm the calorie calculation is also correct.
+And we'll relaunch the app and load another food for good measure.
+We'll do one last check on the database and if all is good then that's this functionality completed.
+
+## 35) Display all Foods in Database:
+
+We want to see all the foods that are already in the database to show up under the food entry form so we don't accidentally re-enter an existing food.
+And to get our food in the database we'll have to write a query to do so.
+So we'll do a number of formats, firstly, we'll move the get_db above the if statement.
+Then we'll copy the return statement into the if true portion of the if statement, and then indent the origin into the else portion.
+Now we'll query the database to fetch all food items from it.
+Then in the else return we'll include the results to create the food items.
+Now in the add_food.html file, we'll look for where we are displaying the food items.
+We'll encase the unordered list tags that we have in a for loop which will loop over each item in the results we passed to the template
+which it'll iterate over and dynamically read the items into the ul entries.
+However, if we test it now, the items are rather cramped ontop of eachother, 

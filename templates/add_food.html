@@ -65,13 +65,16 @@
 
               <div class="page-header"></div>
 
+              {% for item in results %}
               <ul class="nav nav-pills" role="tablist">
-                <li class="active"><a>Pizza</a></li>
-                <li><a>Protein: <span class="badge">100</span></a></li>
-                <li><a>Carbohydrates: <span class="badge">200</span></a></li>
-                <li><a>Fat: <span class="badge">50</span></a></li>
-                <li><a>Calories: <span class="badge">1650</span></a></li>
+                <li class="active"><a>{{ item['name'] }}</a></li>
+                <li><a>Protein: <span class="badge">{{ item['protein'] }}</span></a></li>
+                <li><a>Carbohydrates: <span class="badge">{{ item['carbohydrates'] }}</span></a></li>
+                <li><a>Fat: <span class="badge">{{ item['fat'] }}</span></a></li>
+                <li><a>Calories: <span class="badge">{{ item['calories'] }}</span></a></li>
               </ul>
+              <hr class="food-div">
+              {% endfor %}
             </div>
 
           </div>

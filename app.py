@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 def connect_db():
-    sql = sqlite3.connect('D:\Learning\The Ultimate Flask Course\Section4_Food_Tracker/food_log.db')
+    sql = sqlite3.connect('D:/Learning/The Ultimate Flask Course/Section4_Food_Tracker/food_log.db')
     sql.row_factory = sqlite3.Row
     return sql
 
@@ -26,19 +26,32 @@ def index():
 
 @app.route('/food', methods=['GET', 'POST'])
 def food():
-    if request.method == "POST":
+    db = get_db()
 
+    if request.method == "POST":
+        
+        # Retreiving the form data entered via the POST method.
         name = request.form['food-name']
-        carbs = request.form['carbohydrates']
-        protein = request.form['protein']
-        fat = request.form['fat']
+        carbs = int(request.form['carbohydrates'])
+        protein = int(request.form['protein'])
+        fat = int(request.form['fat'])
+
         calories = (protein*4) + (carbs*4) + (fat*9)
 
-        db = get_db()
-        
-        return "<h1>{}{}{}{}</h1>".format(request.form['food-name'], request.form['protein'], request.form['carbohydrates'], request.form['fat'])
-    else:
+        # Inserting the values into the database as a new food item.
+        db.execute('insert into food (name, protein, carbohydrates, fat, calories) VALUES (?, ?, ?, ?, ?)', \
+                   [name, protein, carbs, fat, calories])
+        db.commit()
+
+        # Calling the food route using the get method here to save on processing.
         return render_template('add_food.html')
+    else:
+        # Fetching all items from the database.
+        cur = db.execute('select name, protein, carbohydrates, fat, calories from food;')
+        results = cur.fetchall()
+        
+        # Returning the form with the food items from the database.
+        return render_template('add_food.html', results=results)
 
 @app.route('/view')
 def view():
