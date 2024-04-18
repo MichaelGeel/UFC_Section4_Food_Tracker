@@ -96,3 +96,32 @@ So upon adding a food, the page should refresh and the food just adding should s
 
 ## 36) Inserting the Date:
 
+Having completed the intended functionality of the food page, we'll now focus on the index page.
+The functionality we want to add is for a user to be able to add a date and then have the day appear in a list.
+The date will be entered in the input box, and once the user has clicked the "add" button, the page will refresh and we'll 
+be able to see the date listed below.
+Once again the first thing to do will be to enable POST and GET requests to this route.
+Then we'll run the request method if statement.
+For now we'll test to see what the date format is when fetched from the input, so we'll give the input a name so we can retrieve the 
+name:value pair from it upon form submission, then we'll return it's value for a post request.
+Then we save, launch the app and test it.
+We see we get it back in the "YYYY-MM-DD" format.
+However, we want to save the date in the database without any dashes in them, in a "YYYYMMDD" format, and then want to 
+be able to output it in the list as a formatted date: "Month DD, YYYY" for example: "January 17th, 2022"
+For now, we'll test it out in the terminal, so we'll call up the python interpreter and set up a dummy date variable.
+To do all this, we need the datetime module:
+    "from datetime import datetime"
+Now to get it into the database format (no dashes), we're going to use the following line of code:
+    "parse_date = datetime.strptime(date, '%Y-%m-%d')"
+What this does is it parses the date as a string and returns it, however we need to pass in a format string to tell the 
+strptime function how to format the date string, where %Y represent year, %m month and %d day.
+Now if we print the variable containing the formatted date, we'll get a datetime object with the various parts of the date separated.
+So we now want to convert it into the string that'll go into the database:
+    "db_date = datetiem.strftime(parse_date, '%Y%m%d')"
+And with this we have the date in the format we want it in.
+Lastly, to convert it into the full date for the displayed list we'll use:
+    "display_date = datetime.strftime(parse_date, '%B %d, %Y')"
+Here, %B gives us the full month name.
+Now with this, back in our code, under the if method = 'POST' block, we format the date into the db_date, then insert and commit into the database.
+After that, outside the if block, we do a fetch everything from the log_date table to get all the dates for display.
+And once we have the results saved we can pass it into the template to be looped through and displayed.

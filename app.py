@@ -1,5 +1,6 @@
 from flask import Flask, url_for, redirect, g, session, render_template, request, jsonify
 import sqlite3
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -20,9 +21,22 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('home.html')
+    db = get_db()
+
+    if request.method == 'POST':
+        date = request.form['date']
+        parse_date = datetime.strptime(date, '%Y-%m-%d')
+        database_date = datetime.strftime(parse_date, '%Y%m%d')
+
+        db.execute('insert in log_date (entry_date) VALUES (?)', database_date)
+        db.commit()
+
+    cursor = db.execute('select id, entry_date from log_date')
+    results = cursor.fetchall()
+
+    return render_template('home.html', results=results)
 
 @app.route('/food', methods=['GET', 'POST'])
 def food():
