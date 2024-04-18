@@ -45,9 +45,10 @@
 
           <div class="page-header"></div>
 
+          {% for item in results %}
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <h3 class="panel-title">January 28, 2017</h3>
+              <h3 class="panel-title">{{ datetime.strftime(item, '%B %d, %Y') }}</h3>
             </div>
             <div class="panel-body">
               <ul class="nav nav-pills" role="tablist">
@@ -59,6 +60,7 @@
               </ul>
             </div>
           </div>
+          {% endfor %}
         </div>
       </div>
 

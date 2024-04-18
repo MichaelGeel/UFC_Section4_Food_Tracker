@@ -30,13 +30,15 @@ def index():
         parse_date = datetime.strptime(date, '%Y-%m-%d')
         database_date = datetime.strftime(parse_date, '%Y%m%d')
 
-        db.execute('insert in log_date (entry_date) VALUES (?)', database_date)
+        db.execute('insert into log_date (entry_date) VALUES (?)', [database_date])
         db.commit()
 
-    cursor = db.execute('select id, entry_date from log_date')
+    cursor = db.execute('select entry_date from log_date')
     results = cursor.fetchall()
 
-    return render_template('home.html', results=results)
+    #dates = [datetime.strftime()]
+
+    return results#render_template('home.html', results=results)
 
 @app.route('/food', methods=['GET', 'POST'])
 def food():
