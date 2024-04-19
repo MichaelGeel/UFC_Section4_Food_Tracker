@@ -125,3 +125,22 @@ Here, %B gives us the full month name.
 Now with this, back in our code, under the if method = 'POST' block, we format the date into the db_date, then insert and commit into the database.
 After that, outside the if block, we do a fetch everything from the log_date table to get all the dates for display.
 And once we have the results saved we can pass it into the template to be looped through and displayed.
+Thus far we have through testing confirmed that the POST function is still working, we just need to complete the show date functionality.
+
+## 37) Query all Dates:
+
+Now that we're able to add dates into the database, we want to be able to get a list of all the dates that are in the databse and list them.
+To start off we'll query the database to fetch all items in it, but we'll only pull the entry_date.
+Note that the query will be getting updated later to support having the fod information populated on a given day as well.
+Now we want to pass the results to the template, but because it's a special datatype from the sqlite3.Row we need to format it into a new list.
+For this, we need to parse the flat string with strptime using %Y%m%d, and then format it using strftime into the pretty date and make a list of the date.
+Then once the dates are formatted and listed, we can pass it to the template and implement a for loop to loop over the dates list dislaying the dates.
+For reference, we have to use strptime before strftime because the datetime module won't recognize a string as a date at first, so we're telling it
+to recognize the string as a date and how the date string is laid out, and this way it can convert it into a date, and from there can we only 
+format the date object.
+Lastly, currently we notice that the dates are in the order that they were added to the database, which is not necessarily chronological order, so to fix this
+we'll add an "ORDER BY" sort to the query so that our data is received in order, we specify desc so that the most recent dates are at the top.
+
+## 38) Day Screen:
+
+

@@ -27,18 +27,18 @@ def index():
 
     if request.method == 'POST':
         date = request.form['date']
-        parse_date = datetime.strptime(date, '%Y-%m-%d')
-        database_date = datetime.strftime(parse_date, '%Y%m%d')
+        parse_date = datetime.strptime(date, '%Y-%m-%d') # Parses the time into the specified format.
+        database_date = datetime.strftime(parse_date, '%Y%m%d') # Formats the parsed time into the specified format.
 
         db.execute('insert into log_date (entry_date) VALUES (?)', [database_date])
         db.commit()
 
-    cursor = db.execute('select entry_date from log_date')
+    cursor = db.execute('select entry_date from log_date order by entry_date desc;')
     results = cursor.fetchall()
 
-    #dates = [datetime.strftime()]
+    dates = [datetime.strftime(datetime.strptime(str(date['entry_date']), '%Y%m%d'), '%B %d, %Y') for date in results]
 
-    return results#render_template('home.html', results=results)
+    return render_template('home.html', results=dates)
 
 @app.route('/food', methods=['GET', 'POST'])
 def food():
