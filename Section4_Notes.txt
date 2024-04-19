@@ -143,4 +143,14 @@ we'll add an "ORDER BY" sort to the query so that our data is received in order,
 
 ## 38) Day Screen:
 
-
+Now that we have dates displaying on the home screen, we need to be able to add dates so that we can calculate the totals for a given day in the home screen.
+Now on the view screen, the first thing we want to do is to add an entry to a date.
+And in order to do this, we first need to access the date so that we know what day we're adding the food to.
+So we'll add a parameter to the route so that the date can be specified.
+So we'll add a date parameter in the URL and it'll be expected to come in in the same format as a date stored in the database.
+Once we have the date we'll query the database for that particular date.
+We'll now check that we're querying the database successfully and passing a proper date to the database.
+Now we'll parse and format the date we've fetched from the database to pass into the template.
+The reason we query the database is two-fold: firstly, we want to ensure an entered date is in the databse, and we're setting the route up for
+future improvements that we'll be making in future.
+Once we've implemented this, well confirm the functionality is working and if it is we should see the formatted date entered in the URL at the top of the page.
