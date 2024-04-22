@@ -70,12 +70,13 @@ def food():
 def view(date):
     db = get_db()
 
-    if request.method == "POST":
-        return '<h1>The food item is #{}</h1>'.format(request.form["food-select"])
-
     # Fetching and formatting the entered date for display in the template.
-    cursor = db.execute('select entry_date from log_date where entry_date = ?;', [date])
+    cursor = db.execute('select id, entry_date from log_date where entry_date = ?;', [date])
     database_date = cursor.fetchone()
+
+    if request.method == "POST":
+        db.execute('insert into food_date (food_id, log_date_id) VALUES (?, ?)', [request.form['food-select'], database_date['id']])
+        db.commit() 
 
     formatted_date = datetime.strftime(datetime.strptime(str(database_date['entry_date']), '%Y%m%d'), '%B %d, %Y')
 
@@ -83,7 +84,7 @@ def view(date):
     food_cursor = db.execute('select id, name from food;')
     food_results = food_cursor.fetchall()
 
-    return render_template('day.html', formatted_date=formatted_date, database_date=database_date, food_results=food_results)
+    return render_template('day.html', formatted_date=formatted_date, database_date=database_date['entry_date'], food_results=food_results)
 
 
 if __name__ == '__main__':

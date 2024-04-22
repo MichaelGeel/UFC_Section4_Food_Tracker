@@ -168,3 +168,14 @@ We'll also need to give the select a name so that we can correctly retrieve the 
 NOTE: within a variable block call, multiple variables can be called in a single block, a pair of {{}} isn't needed per variable.
 So we've passed the database date format into the template as well to be able to work with the dates dynamically during testing instead of hard-coding the date.
 Then we'll add an if block to check for POST request type and return the selected food item id upon a post request to ensure the data is being passed correctly.
+Then running the program, when add is clicked we should be able to get the food item id back in the browser.
+
+## 39) Add food to Database:
+
+Now that we know the form data is submitting correctly, we'll be actually adding that data into the database.
+To start, we'll remove the return that we used in the previous lesson to test the post request submit.
+And now we'll insert the data into the database, specifically the food item id from the form, and the id for the date we're working with.
+To start we now need to get the food date id, which we can do by moving the date query above the post if block and adding id to the query so we get that as well.
+With both the datapoints we need we can insert the data into the database and commit it.
+Note that for this table the primary key will automatically be created using the 2 datapoints we're inserting into the table for that row.
+Now we'll attempt to test this functionality.
