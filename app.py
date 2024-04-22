@@ -69,12 +69,21 @@ def food():
 @app.route('/view/<date>', methods=['POST', 'GET'])
 def view(date):
     db = get_db()
+
+    if request.method == "POST":
+        return '<h1>The food item is #{}</h1>'.format(request.form["food-select"])
+
+    # Fetching and formatting the entered date for display in the template.
     cursor = db.execute('select entry_date from log_date where entry_date = ?;', [date])
     database_date = cursor.fetchone()
 
     formatted_date = datetime.strftime(datetime.strptime(str(database_date['entry_date']), '%Y%m%d'), '%B %d, %Y')
 
-    return render_template('day.html', date=formatted_date)
+    # Getting a list of all food items in the database.
+    food_cursor = db.execute('select id, name from food;')
+    food_results = food_cursor.fetchall()
+
+    return render_template('day.html', formatted_date=formatted_date, database_date=database_date, food_results=food_results)
 
 
 if __name__ == '__main__':

@@ -154,3 +154,17 @@ Now we'll parse and format the date we've fetched from the database to pass into
 The reason we query the database is two-fold: firstly, we want to ensure an entered date is in the databse, and we're setting the route up for
 future improvements that we'll be making in future.
 Once we've implemented this, well confirm the functionality is working and if it is we should see the formatted date entered in the URL at the top of the page.
+Next we'll populate the dropdown menu with all the food items in the food database table, with the idea that we'll be able to select a food item
+from the dropdown menu and hit add to add the food item to that particular day.
+From the food table we'll need the id and names of all foods so that we can reference the food item when we add it.
+Then we pass the results to the render_template, where we can loop through the results in a for loop.
+Every dropdown menu item will take a food.name item.
+We'll then test that all the food items are listed at this point as intended.
+Now we naturally need to pass the id's of the food items as well when we select one, and we'll do this by adding the food item's id as the value of the particular option in the loop.
+We'll test again and use the inspect option in the browser to confirm the IDs of the option.
+Next we'll test submitting the form to ensure we're getting back the data we want back for when we update the database.
+Firstly we'll give the form we've been working with an action to execute when we submit and the action will be to load the same route again as a post method.
+We'll also need to give the select a name so that we can correctly retrieve the name:value pair from the form.
+NOTE: within a variable block call, multiple variables can be called in a single block, a pair of {{}} isn't needed per variable.
+So we've passed the database date format into the template as well to be able to work with the dates dynamically during testing instead of hard-coding the date.
+Then we'll add an if block to check for POST request type and return the selected food item id upon a post request to ensure the data is being passed correctly.
