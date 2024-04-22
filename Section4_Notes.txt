@@ -179,3 +179,9 @@ To start we now need to get the food date id, which we can do by moving the date
 With both the datapoints we need we can insert the data into the database and commit it.
 Note that for this table the primary key will automatically be created using the 2 datapoints we're inserting into the table for that row.
 Now we'll attempt to test this functionality.
+Then barring any issues, we should have successfully been able to add a few food items to dates in the database, so we'll go check in the databse and they 
+should be there in the food_date table.
+NOTE: there's a unique constraint preventing the same food item from being adding twice so without error handling currenlty that will cause the app to crash.
+
+## 40)
+
