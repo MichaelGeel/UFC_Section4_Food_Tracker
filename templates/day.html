@@ -66,17 +66,19 @@
 
             </div>
 
+            {% for food in food_list %}
             <div class="page-header"></div>
 
             <div class="panel-body">
               <ul class="nav nav-pills" role="tablist">
-                <li class="active"><a>Pizza</a></li>
-                <li><a>Protein: <span class="badge">100</span></a></li>
-                <li><a>Carbohydates: <span class="badge">200</span></a></li>
-                <li><a>Fat: <span class="badge">50</span></a></li>
-                <li><a>Calories: <span class="badge">1650</span></a></li>
+                <li class="active"><a>{{ food.name }}</a></li>
+                <li><a>Protein: <span class="badge">{{ food.protein }}</span></a></li>
+                <li><a>Carbohydates: <span class="badge">{{ food.carbohydrates }}</span></a></li>
+                <li><a>Fat: <span class="badge">{{ food.fat }}</span></a></li>
+                <li><a>Calories: <span class="badge">{{ food.calories }}</span></a></li>
               </ul>
             </div>
+            {% endfor %}
 
           </div>
         </div>

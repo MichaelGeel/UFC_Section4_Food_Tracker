@@ -75,7 +75,8 @@ def view(date):
     database_date = cursor.fetchone()
 
     if request.method == "POST":
-        db.execute('insert into food_date (food_id, log_date_id) VALUES (?, ?)', [request.form['food-select'], database_date['id']])
+        db.execute('insert into food_date (food_id, log_date_id) VALUES (?, ?)', \
+                   [request.form['food-select'], database_date['id']])
         db.commit() 
 
     formatted_date = datetime.strftime(datetime.strptime(str(database_date['entry_date']), '%Y%m%d'), '%B %d, %Y')
@@ -84,7 +85,15 @@ def view(date):
     food_cursor = db.execute('select id, name from food;')
     food_results = food_cursor.fetchall()
 
-    return render_template('day.html', formatted_date=formatted_date, database_date=database_date['entry_date'], food_results=food_results)
+    food_list_cursor = db.execute('''select f.name, f.protein, f.carbohydrates, f.fat, f.calories \
+                                  from log_date as l \
+                                  join food_date as d on d.log_date_id = l.id \
+                                  join food as f on d.food_id = f.id \
+                                  where l.entry_date = ?;''', [date])
+    food_list_results = food_list_cursor.fetchall()
+
+    return render_template('day.html', formatted_date=formatted_date, database_date=database_date['entry_date'], \
+                           food_results=food_results, food_list=food_list_results)
 
 
 if __name__ == '__main__':

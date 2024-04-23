@@ -185,3 +185,14 @@ NOTE: there's a unique constraint preventing the same food item from being addin
 
 ## 40)
 
+We now want to fetch all the values in the log for a particular date that we are viewing in the view page.
+So to do this, we're going to need to execute another query in the view function that joins all 3 tables together, as we need 
+to both get the date we're working with, and to get the list of foods.
+For this, we'll start with the log_date table and join in the food_date table which holds the food - date links and lastly join in the foods to generate the food list.
+In this we'll filter by where log_date.entry_date equals the date that was passed into the route.
+We'll then fetch the results and pass them into the template for this route.
+Now in the template, we'll create a loop over the panel-body elements that'll display each of the food items we've passed.
+Note that in the template, there are 2 panels: 1 shows the totals for the day, and the other is a placeholder where the foods entered will be listed from.
+We want to encompass the one that the food list will be comprised of in the for loop.
+Then once we've implemented the for loop, we can go ahead and test it out by loading up the page using a date we know has foods linked to it.
+And upon loading up the day, we should get an appropriate list of all the food items that have been linked to that particular day.
