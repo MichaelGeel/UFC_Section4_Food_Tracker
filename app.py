@@ -92,8 +92,21 @@ def view(date):
                                   where l.entry_date = ?;''', [date])
     food_list_results = food_list_cursor.fetchall()
 
+    totals_dict = {
+        "protein": 0,
+        "carbohydrates": 0,
+        "fat": 0,
+        "calories": 0
+    }
+
+    for item in food_list_results:
+        totals_dict["protein"] += int(item['protein'])
+        totals_dict["carbohydrates"] += int(item['carbohydrates'])
+        totals_dict["fat"] += int(item['fat'])
+        totals_dict["calories"] += int(item['calories'])
+
     return render_template('day.html', formatted_date=formatted_date, database_date=database_date['entry_date'], \
-                           food_results=food_results, food_list=food_list_results)
+                           food_results=food_results, food_list=food_list_results, totals_dict=totals_dict)
 
 
 if __name__ == '__main__':

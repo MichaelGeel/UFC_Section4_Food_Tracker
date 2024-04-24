@@ -183,7 +183,7 @@ Then barring any issues, we should have successfully been able to add a few food
 should be there in the food_date table.
 NOTE: there's a unique constraint preventing the same food item from being adding twice so without error handling currenlty that will cause the app to crash.
 
-## 40)
+## 40) Get List of Foods for Day:
 
 We now want to fetch all the values in the log for a particular date that we are viewing in the view page.
 So to do this, we're going to need to execute another query in the view function that joins all 3 tables together, as we need 
@@ -196,3 +196,17 @@ Note that in the template, there are 2 panels: 1 shows the totals for the day, a
 We want to encompass the one that the food list will be comprised of in the for loop.
 Then once we've implemented the for loop, we can go ahead and test it out by loading up the page using a date we know has foods linked to it.
 And upon loading up the day, we should get an appropriate list of all the food items that have been linked to that particular day.
+
+## 41) Getting Food Totals for Day: 
+
+There are a number of ways to get our totals, we could use a means of querying the database or we could use the existing data we've pulled
+and calculate the totals in python, which is what we're going to do because we want to minimize the number of times we query the database 
+for optimization purposes.
+To do this in python, we'll take the fetch all food items results we got for the previous lesson and loop through them in the route.
+We'll initialize a totals dictionary before the loop and in the loop we'll add the numbers of each food in the results to the totals.
+Then we'll feed the totals to the template in the route return and in the template we'll update the totals values according the dictionary 
+we passed to the template.
+Lastly we'll test it out and for a day with food items linked to it we should be able to see the totals info for that day.
+
+## 42) Links:
+
