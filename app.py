@@ -33,12 +33,19 @@ def index():
         db.execute('insert into log_date (entry_date) VALUES (?)', [database_date])
         db.commit()
 
-    cursor = db.execute('select entry_date from log_date order by entry_date desc;')
-    results = cursor.fetchall()
+    dates_cursor = db.execute('select entry_date from log_date order by entry_date desc;')
+    dates_results = dates_cursor.fetchall()
 
-    dates = [datetime.strftime(datetime.strptime(str(date['entry_date']), '%Y%m%d'), '%B %d, %Y') for date in results]
+    date_results = []
 
-    return render_template('home.html', results=dates)
+    for i in dates_results:
+        single_date = {}
+        single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(i['entry_date']), '%Y%m%d'), '%B %d, %Y')
+        single_date['database_date'] = i['entry_date']
+
+        date_results.append(single_date)
+
+    return render_template('home.html', results=date_results)
 
 @app.route('/food', methods=['GET', 'POST'])
 def food():

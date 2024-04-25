@@ -210,3 +210,15 @@ Lastly we'll test it out and for a day with food items linked to it we should be
 
 ## 42) Links:
 
+Now what we next want to do is modify the home route so that the links to the view page for a given day works, and also that the 
+totals for each date are correct.
+Now we'll first go to the home template and modify the view details link to redirect you to the view page.
+For now we'll give a static date to pass in the url_for variable we place in the href for the link.
+To do this we're going to use the existing informational list we've got an we're going to build it out.
+In the existing for loop where we format the date for displaying each individual day, we simply add the original date format to the list of 
+dictionaries that we pass to the template, so that for each day, we can access the database and formatted date.
+Once we've added the plain database result in the format the route needs to redirect we can pass it to the url for and in testing we can now 
+use the "View Details" button for each day to inspect that particular day's food data.
+
+## 43) Sum Totals for Each Day
+
