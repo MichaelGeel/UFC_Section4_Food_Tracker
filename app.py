@@ -44,6 +44,7 @@ def index():
 
     results = []
 
+    # Looping through dates in the above query to format the totals and date together.
     for i in totals_results:
         single_date = {}
         single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(i['entry_date']), '%Y%m%d'), '%B %d, %Y')
@@ -55,9 +56,11 @@ def index():
 
         results.append(single_date)
 
+    # Pulling all dates to solve a bug whereby a date with no added foods doesn't show up on the home screen.
     dates_cursor = db.execute('select entry_date from log_date order by entry_date desc;')
     dates_results = dates_cursor.fetchall()
 
+    # Running through all dates, checking if they're present in the results list and if not, adding them to the results list.
     dates_in_list = [x['database_date'] for x in results]
     for date in dates_results:
         if date['entry_date'] not in dates_in_list:
