@@ -239,4 +239,18 @@ and this in turn makes that day inaccessible.
 This essentially came down to re-adding the query that gets all the dates, pulling a list of the existing dates, check if a date is in the list
 and if not then adding it with 0s assigned to all the total values.
 
-## 44) 
+## 44) Adding Links:
+
+We'll now update and ensure the links to all pages are working correctly throughout the application.
+We'll start with the add food item link in the home template, and all we need to do if find the relevant spot in the home.html file
+and add the url_for to redirect to the add_food page.
+Then we'll update the home link on the home screen (essentialy a page refresh)
+NOTE: in the url_for function in a template, we pass it the name of the function associated to a particular route/decorator.
+This should cover all the links in the home page, we'll now move onto the add food page.
+Here we'll again add the url_for links to both food and home in the same places on this page.
+Lastly, we'll again do the same thing on the view details page as well.
+Note that on the view details page, the home route needs to be referenced twice as there's a "home" button and the name of the 
+app links back home as well.
+
+## 45) Refactor:
+
