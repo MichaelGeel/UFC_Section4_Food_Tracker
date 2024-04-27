@@ -254,3 +254,19 @@ app links back home as well.
 
 ## 45) Refactor:
 
+There won't be much refactoring for this app because it is an incredibly small app in it's own right.
+We'll be moving the database connection functions into their own file, named database.py and copy over the get_db and connect_db functions over.
+We'll also need to move over the relevatn imports and import the connect_db function from the other file.
+We do leave the app.teardown in the app.py file as it's a more flask specific function so there's no point moving it elsewhere.
+The next refactor we want to do is take out the common elements within each of the html files and turn it into a base file, that the other 
+templates will inherit from.
+To do this, we'll copy over the entirety of one template and most of the template is consistent across all the templates, and then cut out the differences as blocks,
+which will be everything within the body of the template.
+So in the base template, we'll remove the title and put a title block there, and remove everything in the body and put a content block there.
+Then we'll convert all 3 templates to extend the base.html file with the relevant blocks.
+The last refactor we're doing in moving incredibly large length lines to span multiple lines so that everything is one screen and readable.
+This is mostly the queries but there is a return and some data transformation that needs to be shortened.
+Then we naturally confirm everything is working.
+
+## 46) Deployment Server setup on Amazon Lightsail:
+

@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "base.html" %}
 
-    <title>Food Tracker | Add Food</title>
+{% block title %}Food Tracker | Add Food{% endblock %}
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='theme.css') }}" rel="stylesheet">
-
-  </head>
-
-  <body>
-
+  {% block content %}
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -82,7 +69,4 @@
       </div>
 
     </div>
-
-  </body>
-
-</html>
+  {% endblock %}

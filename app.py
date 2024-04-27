@@ -1,20 +1,10 @@
-from flask import Flask, url_for, redirect, g, session, render_template, request, jsonify
-import sqlite3
+from flask import Flask, g, render_template, request
+from database import get_db
 from datetime import datetime
 
 
 app = Flask(__name__)
 
-
-def connect_db():
-    sql = sqlite3.connect('D:/Learning/The Ultimate Flask Course/Section4_Food_Tracker/food_log.db')
-    sql.row_factory = sqlite3.Row
-    return sql
-
-def get_db():
-    if not hasattr(g, 'sqlite3_db'):
-        g.sqlite_db = connect_db()
-    return g.sqlite_db
 
 @app.teardown_appcontext
 def close_db(error):
@@ -33,7 +23,8 @@ def index():
         db.execute('insert into log_date (entry_date) VALUES (?)', [database_date])
         db.commit()
 
-    totals_cursor = db.execute('''select l.entry_date, sum(f.protein) as protein, sum(f.carbohydrates) as carbohydrates, \
+    totals_cursor = db.execute('''select l.entry_date, sum(f.protein) as protein, \
+                                    sum(f.carbohydrates) as carbohydrates, \
                                     sum(f.fat) as fat, sum(f.calories) as calories \
                                     from log_date as l \
                                     join food_date as d on d.log_date_id = l.id \
@@ -47,7 +38,8 @@ def index():
     # Looping through dates in the above query to format the totals and date together.
     for i in totals_results:
         single_date = {}
-        single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(i['entry_date']), '%Y%m%d'), '%B %d, %Y')
+        single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(i['entry_date']), \
+                                                                            '%Y%m%d'), '%B %d, %Y')
         single_date['database_date'] = i['entry_date']
         single_date['protein'] = i['protein']
         single_date['carbohydrates'] = i['carbohydrates']
@@ -65,7 +57,8 @@ def index():
     for date in dates_results:
         if date['entry_date'] not in dates_in_list:
             single_date = {}
-            single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(date['entry_date']), '%Y%m%d'), '%B %d, %Y')
+            single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(date['entry_date']), \
+                                                                                '%Y%m%d'), '%B %d, %Y')
             single_date['database_date'] = date['entry_date']
             single_date['protein'] = 0
             single_date['carbohydrates'] = 0
