@@ -222,3 +222,21 @@ use the "View Details" button for each day to inspect that particular day's food
 
 ## 43) Sum Totals for Each Day
 
+Now in order to get the totals for each of the dates, we'll need to write another query to get the sums.
+We get introduced to a tool in the chrome app store called Jade that can be used to open up a sqlite3 database, and 
+this is helpful because it means we can fine tune a query easier.
+So what we'll do is create the query we want to write by perfecting it in jade, then we'll move over to the app to save on time as it 
+become tedious having to restart the whole app to test the query.
+For this, we'll pull the date, protein, carbohydrates, fat and calorie values from the database, then we'll sum the 
+food values to get our totals and implement a group by the date to get the totals to be specific to the log_dates.
+Now we replace the existing query that only pulls the dates with the query we've just created, as that way, we can 
+maintain the rest of our code with little refactoring and just add in the totals variables into the results we feed to the template.
+Note that in the sql query, we'll have to add in aliases for the columns, as in sql when you perform an operation on the column 
+like sum() the column name becomes "sum(xyz)" which is cumbersome to handle when wantin to reference that column, so we give it an alias 
+to provide a shorthand reference for the column.
+NOTE: Had to include handling because the code used in the course makes it so that a day with no food linked doesn't show up in the home page 
+and this in turn makes that day inaccessible.
+This essentially came down to re-adding the query that gets all the dates, pulling a list of the existing dates, check if a date is in the list
+and if not then adding it with 0s assigned to all the total values.
+
+## 44) 

@@ -52,10 +52,10 @@
             </div>
             <div class="panel-body">
               <ul class="nav nav-pills" role="tablist">
-                <li><a>Protein: <span class="badge">{{ item.formatted_date }}</span></a></li>
-                <li><a>Carbohydates: <span class="badge">{{ item.formatted_date }}</span></a></li>
-                <li><a>Fat: <span class="badge">{{ item.formatted_date }}</span></a></li>
-                <li><a>Calories: <span class="badge">{{ item.formatted_date }}</span></a></li>
+                <li><a>Protein: <span class="badge">{{ item.protein }}</span></a></li>
+                <li><a>Carbohydates: <span class="badge">{{ item.carbohydrates }}</span></a></li>
+                <li><a>Fat: <span class="badge">{{ item.fat }}</span></a></li>
+                <li><a>Calories: <span class="badge">{{ item.calories }}</span></a></li>
                 <li><a href="{{ url_for('view', date=item.database_date)}}" type="button" class="btn btn-link">View Detail</a></li>
               </ul>
             </div>

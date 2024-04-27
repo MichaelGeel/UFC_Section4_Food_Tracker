@@ -33,19 +33,45 @@ def index():
         db.execute('insert into log_date (entry_date) VALUES (?)', [database_date])
         db.commit()
 
-    dates_cursor = db.execute('select entry_date from log_date order by entry_date desc;')
-    dates_results = dates_cursor.fetchall()
+    totals_cursor = db.execute('''select l.entry_date, sum(f.protein) as protein, sum(f.carbohydrates) as carbohydrates, \
+                                    sum(f.fat) as fat, sum(f.calories) as calories \
+                                    from log_date as l \
+                                    join food_date as d on d.log_date_id = l.id \
+                                    join food as f on d.food_id = f.id \
+                                    group by l.entry_date
+                                    order by l.entry_date desc;''')
+    totals_results = totals_cursor.fetchall()
 
-    date_results = []
+    results = []
 
-    for i in dates_results:
+    for i in totals_results:
         single_date = {}
         single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(i['entry_date']), '%Y%m%d'), '%B %d, %Y')
         single_date['database_date'] = i['entry_date']
+        single_date['protein'] = i['protein']
+        single_date['carbohydrates'] = i['carbohydrates']
+        single_date['fat'] = i['fat']
+        single_date['calories'] = i['calories']
 
-        date_results.append(single_date)
+        results.append(single_date)
 
-    return render_template('home.html', results=date_results)
+    dates_cursor = db.execute('select entry_date from log_date order by entry_date desc;')
+    dates_results = dates_cursor.fetchall()
+
+    dates_in_list = [x['database_date'] for x in results]
+    for date in dates_results:
+        if date['entry_date'] not in dates_in_list:
+            single_date = {}
+            single_date['formatted_date'] = datetime.strftime(datetime.strptime(str(date['entry_date']), '%Y%m%d'), '%B %d, %Y')
+            single_date['database_date'] = date['entry_date']
+            single_date['protein'] = 0
+            single_date['carbohydrates'] = 0
+            single_date['fat'] = 0
+            single_date['calories'] = 0
+
+            results.append(single_date)
+
+    return render_template('home.html', results=results)
 
 @app.route('/food', methods=['GET', 'POST'])
 def food():
