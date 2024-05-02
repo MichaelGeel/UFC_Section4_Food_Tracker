@@ -359,3 +359,39 @@ And this means our server is officially live and everything is running correctly
 
 ## 47) Deploy to Amazon Lightsail Server:
 
+Now to transfer the code over we'll be using git.
+So we'll confirm that git is installed on the server.
+    "which git"
+And if it is installed we'll get the directory of git as an output.
+We'll naturally need it installed on our local machine as well.
+Now we'll create a repository on the local machine
+    "git init"
+And we'll go to github and create a new repository there to save our code to.
+Then we'll add the origin to the local git repository:
+    "git remote add origin https..."
+Next we'll create a README file:
+    "vi README.md"
+For the sake of this project, just add a simple blurb to the README.md file as it's just a demo application.
+We'll then add and commit everything to the remote repo.
+Then once it's all committed we can push it to the repo.
+Once it's pushed, we'll confirm it's successfully loaded into remote repository.
+If that's successful, we'll now want to clone this repository onto the server.
+    "git clone https..."
+This'll download a clone of the repository to the server.
+Once everything has finished cloning  onto the server, we should be able to change directories into the app folder.
+Don't forget to restart the virtual environment if it isn't running yet.
+After changing directories into the app folder, we'll confirm all the files are there:
+    "ls"
+And oncce that's confirmed before we can run the app we need to update the database.py file with the new database location
+as that filepath has changed.
+We can find the new path using the "pwd" command to get the file path of the current working directory.
+We'll then go into the database.py fiile:
+    "vi database.py"
+And edit only the connect_db function with the new file path as returned in the terminal using pwd.
+We'll save this to confirm the update and then use gunicorn to run the app:
+    "gunicorn app:app"
+Then if we copy the ip again into the browser, we should see our food tracker being hosted successfully on the virtual server.
+Note that the existing database was saved into git and so the current values already entered into the database should be present as well.
+
+## 48) Errata:
+
