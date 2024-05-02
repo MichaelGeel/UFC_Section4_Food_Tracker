@@ -395,3 +395,12 @@ Note that the existing database was saved into git and so the current values alr
 
 ## 48) Errata:
 
+This lesson covers the issue that I have already pre-emptively solved in my flask app where the home route doesn't show 
+a newly created date because no food was linked to it.
+However, note that the solution shown in the lesson is far shorter then my created solution.
+The shorter solution is to use a left join as opposed to a inner join as that allows for null values where an inner join only 
+returns where all columns have values present.
+I will however be maintainin my solution as it's my own personal code that I figured out and implemented as opposed to a solution
+given in a tutorial.
+
+Section END.
