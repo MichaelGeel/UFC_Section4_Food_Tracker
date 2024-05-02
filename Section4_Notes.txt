@@ -270,3 +270,92 @@ Then we naturally confirm everything is working.
 
 ## 46) Deployment Server setup on Amazon Lightsail:
 
+Note, this lesson and the next will only contain notes on how the deployment was done, we won't actually be deploying this application to a free server.
+To deploy this application, we'll be using Amazon Lightsail, which is a virtual server service.
+You can upload your code to the server and then using the IP address of the server you'll be able to see it in your browser.
+We'll also look at Python Anywhere and Heroku for deploying apps in other lessons.
+To start with Amazon lightsail, we'll first create an instance by clicking the "Create Instance" button.
+Note that Amazon Lightsail has a 1 month trial period whereby you can use the service for free.
+When selecting an instance image, instead of "Apps + OS" we'll select "OS Only" and use Linux Ubuntu because we want to ensure 
+that there are no issues.
+We'll leave the rest of the settings as is and choose the $5 monthly plan that has the first month free.
+Then we'll click create.
+Once it's done setting up we'll be able to log in using a console in the browser which will allow you to administer the server.
+When the server is ready, we can get into it by clicking the three dots menu and selecting "connect".
+This will bring up another pop-up browser which contains the terminal for the server.
+In the terminal, the first thing we'll do is update apt-get:
+    "sudo apt-get update"
+After that we'll install NginX:
+    "sudo apt-get install nginx"
+Once that's installed we'll start it to make sure it's running and then we'll configure it to eventually handle our app.
+To start nginx:
+    "sudo /etc/init.d/nginx start"
+And this should the nginx service.
+So now we'll move on to configuring it, and to do that we need to remove the feault configuration:
+    "sudo rm /etc/nginx/site-enabled/default"
+The reason we remove this file is so that we can replace it with another file to handle the flask app when we get to that point.
+Now we'll create a file:
+    "sudo touch /etc/nginx/sites-available/flask_settings"
+Which we'll create a link to another file in the "sites-enabled" folder so we can have both.
+    "sudo ln -s /etc/nginx/sites-available/flask_settings /etc/nginx/sites-enabled/flask_settings"
+So we've created the file in our sites-avaiable folder and linked it to a file of the same name in the sites-enabled folder.
+Once the link is created we'll open up the file we created:
+    "sudo vi /etc/nginx/sites-enabled/flask_settings"
+This has opened the file and we now need to write the code for the app in this file:
+        "server {
+            location / {
+                proxy_pass http://127.0.0.1:8000;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+            }
+        }"
+In the above code, "location /" refers to the index route in our flask app.
+proxy_pass means that a request on the index is going to redirect the user to another address, specifically in this case the 
+home route of the local machine: "http://127.0.0.1:8000"
+Eventually we'll have something called an "application server" running, which is going to be gunicorn.
+The way this works is gunicorn is going to be similar to the development server that is used in flask, and that's what's 
+going to handle the requests to and from the app itself and then nginx is a proxy server, meaning it's going to handle 
+the actual HTTP requests from the outside world and it's going to take those and send them to gunicorn inside your servers.
+So you have 2 servers running, gunicorn is never directly accessed by the outside world, everything has to go through nginx
+and nginx exports everything to gunicorn and it'll send things back to nginx which will in turn send the response to the requester in the 
+outside world.
+We then also set the host and IP headers accordingly as seen in the code above.
+We'll then save this code and restart the server:
+    "sudo /etc/init.d/nginx restart"
+We'll also check that python3 is installed:
+    "which python3"
+And if it is installed we'll get the path to python3 back as the output.
+Thereafter we'll confirm if pip3 is installed:
+    "which pip3"
+Assuming it isn't, we'd use the following code to install it:
+    "sudo apt-get install python3-pip"
+Then we'll install virtualenv:
+    "sudo pip3 install virtualenv"
+With all this done we now need to activate a virtual server:
+To start out with this let's check our working directory to see where we are:
+    "pwd"
+This will output the file path of the directory we're currently in, and if we're happy with our working directory, we can go ahead and
+create the vritual environment.
+    "virtualenv env"
+Then once it's created we can start it up:
+    "source env/bin/activate"
+We now have our server activated.
+We'll once again confirm the version of Python we're working with:
+    "python -V"
+If we're happy with the python version that is installed, we can move on and now install flask.
+    "pip install flask gunicorn"
+Once both of these have been installed, we'll create a simple hello world flask app to make sure that everything is working 
+correctly, and if it is we can then move on to deploying our actual application code.
+So we'll create a hello.py file to test with:
+    "vi hello.py"
+Then in the file we'll import flask, initialize an app and create a basic index/home route and return a "Hello World".
+We'll then save it.
+Note that we don't need the app.run() in this file as gunicorn will handle that for us.
+We'll now run gunicorn:
+    "gunicorn hello:app"
+This should then return the port it's running on, so we'll then copy the server ip address and if we paste it into a new browser tab 
+along with the route name we create we should get our "Hello World" output as intended.
+And this means our server is officially live and everything is running correctly.
+
+## 47) Deploy to Amazon Lightsail Server:
+
